@@ -1,6 +1,6 @@
 import {test} from '@playwright/test'
 
-test('Upload Single Files - Approach 1', async({page})=>{
+test('Upload Single Files', async({page})=>{
     await page.goto('https://blueimp.github.io/jQuery-File-Upload/');
     const uploadFile = await Promise.all([
         page.waitForEvent('filechooser'),
