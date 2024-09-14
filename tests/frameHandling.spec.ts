@@ -17,13 +17,18 @@ test('Frame Handling Using Page.Frame()', async ({ page }) => {
   await page.waitForTimeout(3000);
 })
 
-test.only('Frame Handling Using Page.FrameLocator()', async ({ page }) => {
+test('Frame Handling Using Page.FrameLocator()', async ({ page }) => {
   await page.goto('https://ui.vision/demo/webtest/frames/');
   const frame2 = page.frameLocator('frame[src="frame_2.html"]');
   frame2?.locator('input[name="mytext2"]').fill('Playwright');
   await page.waitForTimeout(3000);
+  await page.waitForLoadState("domcontentloaded");
 })
 
-test('Nested Frame Handling', async ({ page }) => {
+test.only('Nested Frame Handling', async ({ page }) => {
   await page.goto('https://ui.vision/demo/webtest/frames/');
+  const frame3 = page.frame({url:'https://ui.vision/demo/webtest/frames/frame_3.html'});
+  const childFrames = frame3?.childFrames();
+  await childFrames[0].locator('#i5').click({force:true});
+  await page.waitForTimeout(5000);
 })
